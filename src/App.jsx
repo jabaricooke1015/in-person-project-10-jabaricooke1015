@@ -5,14 +5,11 @@ import NewsCard from './components/NewsCard';
 import AlertsCard from './components/AlertsCard';
 import SearchBar from './components/SearchBar';
 import StatusBar from './components/StatusBar';
+import { cachedFetch } from './utils/asyncPatterns';
 
-// PROBLEM: This basic fetch has no retry, no caching, no error handling
+
 async function basicFetch(url) {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return response.json();
+  return cachedFetch(url, { timeout: 3000 });
 }
 
 function App() {
@@ -169,3 +166,4 @@ function App() {
 }
 
 export default App;
+
